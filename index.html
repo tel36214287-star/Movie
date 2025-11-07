@@ -63,12 +63,12 @@
 
     imagens.forEach((imgName, i) => {
       const angle = (i / 12) * 2 * Math.PI;
-      const x = center + radius * Math.sin(angle) - 50; // -50 para centralizar
+      const x = center + radius * Math.sin(angle) - 50;
       const y = center - radius * Math.cos(angle) - 50;
 
       const img = document.createElement("img");
       img.src = `https://tel36214287-star.github.io/Movie/distritos/${imgName}`;
-      img.alt = `distrito ${i + 1}`;
+      img.alt = `Distrito ${i + 1}`;
       img.style.left = `${x}px`;
       img.style.top = `${y}px`;
 
