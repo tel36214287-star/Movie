@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Estrela dos 12 Distritos</title>
   <style>
     body {
@@ -38,37 +38,36 @@
   </style>
 </head>
 <body>
-  <div class="star-container" id="star">
-    <!-- As imagens serão adicionadas via JavaScript -->
-  </div>
+  <div class="star-container" id="star"></div>
 
   <script>
+    // Lista de PNGs dentro da pasta 'distritos' no GitHub Pages
     const imagens = [
-      "/distritos/166911114.png",
-      "/distritos/202401939.png",
-      "/distritos/211280998.png",
-      "/distritos/293232634.png",
-      "/distritos/392696179.png",
-      "/distritos/566031016.png",
-      "/distritos/585400009.png",
-      "/distritos/612145833.png",
-      "/distritos/725442475.png",
-      "/distritos/755832705.png",
-      "/distritos/867605455.png",
-      "/distritos/921322687.png"
+      "166911114.png",
+      "202401939.png",
+      "211280998.png",
+      "293232634.png",
+      "392696179.png",
+      "566031016.png",
+      "585400009.png",
+      "612145833.png",
+      "725442475.png",
+      "755832705.png",
+      "867605455.png",
+      "921322687.png"
     ];
 
     const container = document.getElementById("star");
-    const center = 300; // meio do container
+    const center = 300; // centro do container
     const radius = 250; // distância do centro
 
-    imagens.forEach((src, i) => {
+    imagens.forEach((imgName, i) => {
       const angle = (i / 12) * 2 * Math.PI;
-      const x = center + radius * Math.sin(angle) - 50; // 50 = metade da largura
+      const x = center + radius * Math.sin(angle) - 50;
       const y = center - radius * Math.cos(angle) - 50;
 
       const img = document.createElement("img");
-      img.src = src;
+      img.src = `/Movie/distritos/${imgName}`; // caminho completo na página GitHub
       img.alt = `Distrito ${i + 1}`;
       img.style.left = `${x}px`;
       img.style.top = `${y}px`;
