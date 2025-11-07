@@ -1,52 +1,29 @@
-// Lista de imagens dos distritos
+// Dados dos distritos e imagens
 const imagens = [
-  "166911114.png",
-  "202401939.png",
-  "211280998.png",
-  "293232634.png",
-  "392696179.png",
-  "566031016.png",
-  "585400009.png",
-  "612145833.png",
-  "725442475.png",
-  "755832705.png",
-  "867605455.png",
-  "921322687.png"
+  "166911114.png","202401939.png","211280998.png","293232634.png",
+  "392696179.png","566031016.png","585400009.png","612145833.png",
+  "725442475.png","755832705.png","867605455.png","921322687.png"
 ];
 
-// Criar container se não existir
-let container = document.getElementById("star");
-if (!container) {
-  container = document.createElement("div");
-  container.id = "star";
-  container.style.position = "relative";
-  container.style.width = "600px";
-  container.style.height = "600px";
-  document.body.appendChild(container);
-}
+const escolhas = [
+  {distrito: 0, nomes: ["ERIKA ALEIXO","GUILHERME CARRARA"]},
+  {distrito: 1, nomes: ["JUSSARA","DINHO"]},
+  {distrito: 2, nomes: ["DOMITINA MILANI","CLEBINHO"]},
+  {distrito: 3, nomes: ["ZOI","LETÍCIA"]},
+  {distrito: 4, nomes: ["ELOISA","KATNISS"]},
+  {distrito: 5, nomes: ["EDUARDO","PATRÍCIA"]},
+  {distrito: 6, nomes: ["EU?"]}
+];
 
-// GIF central
-const centerGif = document.createElement("img");
-centerGif.src = "distritos/5Zeus.gif"; // GIF central
-centerGif.alt = "Zeus GIF";
-centerGif.style.position = "absolute";
-centerGif.style.width = "120px";
-centerGif.style.height = "120px";
-centerGif.style.top = "50%";
-centerGif.style.left = "50%";
-centerGif.style.transform = "translate(-50%, -50%)";
-centerGif.style.borderRadius = "50%";
-centerGif.style.border = "3px solid #ff0";
-centerGif.style.boxShadow = "0 0 30px #ff0";
-centerGif.style.zIndex = "5";
+const container = document.getElementById("star");
+const nomeDisplay = document.getElementById("nomeDisplay");
+const centralGif = document.getElementById("centralGif");
 
-container.appendChild(centerGif);
-
-// Centro e raio do círculo
 const center = 300;
 const radius = 250;
+const distritosImgs = [];
 
-// Criar imagens dos distritos ao redor do círculo
+// Cria os distritos em círculo
 imagens.forEach((imgName, i) => {
   const angle = (i / 12) * 2 * Math.PI;
   const x = center + radius * Math.sin(angle) - 50;
@@ -55,26 +32,54 @@ imagens.forEach((imgName, i) => {
   const img = document.createElement("img");
   img.src = `distritos/${imgName}`;
   img.alt = `Distrito ${i + 1}`;
+  img.className = "distrito";
   img.style.position = "absolute";
-  img.style.width = "100px";
-  img.style.height = "100px";
   img.style.left = `${x}px`;
   img.style.top = `${y}px`;
+  img.style.width = "100px";
+  img.style.height = "100px";
   img.style.borderRadius = "50%";
   img.style.border = "2px solid #0f0";
   img.style.boxShadow = "0 0 20px #0f0";
-  img.style.transition = "transform 0.3s, z-index 0.3s";
+  img.style.transition = "transform 0.3s, z-index 0.3s, border-color 0.3s";
   img.style.cursor = "pointer";
 
-  // efeito hover
-  img.addEventListener("mouseenter", () => {
-    img.style.transform = "scale(1.3)";
-    img.style.zIndex = "10";
-  });
-  img.addEventListener("mouseleave", () => {
-    img.style.transform = "scale(1)";
-    img.style.zIndex = "1";
-  });
-
   container.appendChild(img);
+  distritosImgs.push(img);
 });
+
+// Função para girar o gif e destacar o distrito
+let index = 0;
+
+function girarEscolha() {
+  if(index >= escolhas.length) return;
+
+  // Reset highlight
+  distritosImgs.forEach(d => d.classList.remove("highlight"));
+
+  const escolha = escolhas[index];
+  const img = distritosImgs[escolha.distrito];
+  img.classList.add("highlight");
+
+  // Calcular ângulo para centralGif apontar para o distrito
+  const dx = (parseFloat(img.style.left) + 50) - center;
+  const dy = center - (parseFloat(img.style.top) + 50);
+  const angleDeg = Math.atan2(dx, dy) * (180 / Math.PI);
+  centralGif.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
+
+  // Mostrar gif, esconder nome
+  centralGif.style.display = "block";
+  nomeDisplay.style.opacity = 0;
+
+  setTimeout(() => {
+    // Esconder gif, mostrar nome
+    centralGif.style.display = "none";
+    nomeDisplay.innerHTML = escolha.nomes.join("<br>");
+    nomeDisplay.style.opacity = 1;
+
+    index++;
+    setTimeout(girarEscolha, 3000);
+  }, 1500);
+}
+
+girarEscolha();
