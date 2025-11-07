@@ -1,4 +1,4 @@
-// Lista de imagens dos 12 distritos
+// Lista de imagens dos distritos
 const imagens = [
   "166911114.png",
   "202401939.png",
@@ -14,35 +14,46 @@ const imagens = [
   "921322687.png"
 ];
 
-const container = document.getElementById("star");
-const center = 300; // centro do container (px)
-const radius = 250; // distância do centro até cada imagem (px)
+// Criar container se não existir
+let container = document.getElementById("star");
+if (!container) {
+  container = document.createElement("div");
+  container.id = "star";
+  container.style.position = "relative";
+  container.style.width = "600px";
+  container.style.height = "600px";
+  document.body.appendChild(container);
+}
 
-// Adiciona o GIF central
-const gif = document.createElement("img");
-gif.src = "https://tel36214287-star.github.io/Movie/distritos/5Zeus.gif";
-gif.alt = "Zeus GIF";
-gif.style.position = "absolute";
-gif.style.width = "120px";
-gif.style.height = "120px";
-gif.style.top = "50%";
-gif.style.left = "50%";
-gif.style.transform = "translate(-50%, -50%)";
-gif.style.borderRadius = "50%";
-gif.style.border = "3px solid #ff0";
-gif.style.boxShadow = "0 0 30px #ff0";
-gif.style.zIndex = "5";
+// GIF central
+const centerGif = document.createElement("img");
+centerGif.src = "distritos/5Zeus.gif"; // GIF central
+centerGif.alt = "Zeus GIF";
+centerGif.style.position = "absolute";
+centerGif.style.width = "120px";
+centerGif.style.height = "120px";
+centerGif.style.top = "50%";
+centerGif.style.left = "50%";
+centerGif.style.transform = "translate(-50%, -50%)";
+centerGif.style.borderRadius = "50%";
+centerGif.style.border = "3px solid #ff0";
+centerGif.style.boxShadow = "0 0 30px #ff0";
+centerGif.style.zIndex = "5";
 
-container.appendChild(gif);
+container.appendChild(centerGif);
 
-// Adiciona as 12 imagens ao redor
+// Centro e raio do círculo
+const center = 300;
+const radius = 250;
+
+// Criar imagens dos distritos ao redor do círculo
 imagens.forEach((imgName, i) => {
-  const angle = (i / 12) * 2 * Math.PI; // divide o círculo em 12 partes
-  const x = center + radius * Math.sin(angle) - 50; // -50 para centralizar a imagem
+  const angle = (i / 12) * 2 * Math.PI;
+  const x = center + radius * Math.sin(angle) - 50;
   const y = center - radius * Math.cos(angle) - 50;
 
   const img = document.createElement("img");
-  img.src = `https://tel36214287-star.github.io/Movie/distritos/${imgName}`;
+  img.src = `distritos/${imgName}`;
   img.alt = `Distrito ${i + 1}`;
   img.style.position = "absolute";
   img.style.width = "100px";
@@ -55,11 +66,12 @@ imagens.forEach((imgName, i) => {
   img.style.transition = "transform 0.3s, z-index 0.3s";
   img.style.cursor = "pointer";
 
-  img.addEventListener("mouseover", () => {
+  // efeito hover
+  img.addEventListener("mouseenter", () => {
     img.style.transform = "scale(1.3)";
     img.style.zIndex = "10";
   });
-  img.addEventListener("mouseout", () => {
+  img.addEventListener("mouseleave", () => {
     img.style.transform = "scale(1)";
     img.style.zIndex = "1";
   });
