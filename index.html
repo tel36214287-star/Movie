@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estrela dos 12 Distritos</title>
   <style>
     body {
       margin: 0;
+      background: #111;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: #111;
       font-family: sans-serif;
     }
 
@@ -29,6 +29,7 @@
       border: 2px solid #0f0;
       box-shadow: 0 0 20px #0f0;
       transition: transform 0.3s, z-index 0.3s;
+      cursor: pointer;
     }
 
     .star-container img:hover {
@@ -41,7 +42,6 @@
   <div class="star-container" id="star"></div>
 
   <script>
-    // Lista de PNGs dentro da pasta 'distritos' no GitHub Pages
     const imagens = [
       "166911114.png",
       "202401939.png",
@@ -63,11 +63,11 @@
 
     imagens.forEach((imgName, i) => {
       const angle = (i / 12) * 2 * Math.PI;
-      const x = center + radius * Math.sin(angle) - 50;
+      const x = center + radius * Math.sin(angle) - 50; // -50 para centralizar
       const y = center - radius * Math.cos(angle) - 50;
 
       const img = document.createElement("img");
-      img.src = `/Movie/distritos/${imgName}`; // caminho completo na página GitHub
+      img.src = `https://tel36214287-star.github.io/Movie/distritos/${imgName}`;
       img.alt = `Distrito ${i + 1}`;
       img.style.left = `${x}px`;
       img.style.top = `${y}px`;
