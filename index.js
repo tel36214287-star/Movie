@@ -1,69 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>District Star</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #111;
-    }
-    .star-container {
-      position: relative;
-      width: 600px;
-      height: 600px;
-    }
-    .star-container img {
-      position: absolute;
-      width: 80px;
-      height: 80px;
-      transform-origin: center;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #0f0;
-    }
-  </style>
-</head>
-<body>
-  <div class="star-container" id="starContainer"></div>
+// Lista de imagens dos 12 distritos
+const imagens = [
+  "166911114.png",
+  "202401939.png",
+  "211280998.png",
+  "293232634.png",
+  "392696179.png",
+  "566031016.png",
+  "585400009.png",
+  "612145833.png",
+  "725442475.png",
+  "755832705.png",
+  "867605455.png",
+  "921322687.png"
+];
 
-  <script>
-    const starContainer = document.getElementById('starContainer');
+const container = document.getElementById("star");
+const center = 300; // centro do container (px)
+const radius = 250; // distância do centro até cada imagem (px)
 
-    // Lista com os nomes dos 12 arquivos PNG
-    const images = [
-      "166911114.png",
-      "202401939.png",
-      "211280998.png",
-      "293232634.png",
-      "392696179.png",
-      "566031016.png",
-      "585400009.png",
-      "612145833.png",
-      "725442475.png",
-      "755832705.png",
-      "867605455.png",
-      "921322687.png"
-    ];
+// Adiciona o GIF central
+const centerGif = document.createElement("img");
+centerGif.src = "https://tel36214287-star.github.io/Movie/distritos/5Zeus.gif";
+centerGif.alt = "Zeus GIF";
+centerGif.style.position = "absolute";
+centerGif.style.width = "120px";
+centerGif.style.height = "120px";
+centerGif.style.top = "50%";
+centerGif.style.left = "50%";
+centerGif.style.transform = "translate(-50%, -50%)";
+centerGif.style.borderRadius = "50%";
+centerGif.style.border = "3px solid #ff0";
+centerGif.style.boxShadow = "0 0 30px #ff0";
+centerGif.style.zIndex = "5";
+container.appendChild(centerGif);
 
-    const centerX = 300; // centro do container
-    const centerY = 300;
-    const radius = 200; // distância do centro
+// Adiciona os 12 distritos ao redor
+imagens.forEach((imgName, i) => {
+  const angle = (i / 12) * 2 * Math.PI; // divide o círculo em 12 partes
+  const x = center + radius * Math.sin(angle) - 50; // -50 para centralizar a imagem
+  const y = center - radius * Math.cos(angle) - 50;
 
-    images.forEach((imgName, index) => {
-      const img = document.createElement('img');
-      img.src = `https://tel36214287-star.github.io/Movie/distritos/${imgName}`;
+  const img = document.createElement("img");
+  img.src = `https://tel36214287-star.github.io/Movie/distritos/${imgName}`;
+  img.alt = `Distrito ${i + 1}`;
+  img.style.position = "absolute";
+  img.style.width = "100px";
+  img.style.height = "100px";
+  img.style.left = `${x}px`;
+  img.style.top = `${y}px`;
+  img.style.borderRadius = "50%";
+  img.style.border = "2px solid #0f0";
+  img.style.boxShadow = "0 0 20px #0f0";
+  img.style.transition = "transform 0.3s, z-index 0.3s";
+  img.style.cursor = "pointer";
 
-      // Calcula a posição na estrela (360°/12 = 30° de diferença)
-      const angle = (index * 360 / images.length) * Math.PI / 180;
-      img.style.left = `${centerX + radius * Math.cos(angle) - 40}px`; // 40 = half width da imagem
-      img.style.top = `${centerY + radius * Math.sin(angle) - 40}px`;
+  img.addEventListener("mouseover", () => {
+    img.style.transform = "scale(1.3)";
+    img.style.zIndex = "10";
+  });
+  img.addEventListener("mouseout", () => {
+    img.style.transform = "scale(1)";
+    img.style.zIndex = "1";
+  });
 
-      starContainer.appendChild(img);
-    });
-  </script>
-</body>
-</html>
+  container.appendChild(img);
+});
