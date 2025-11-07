@@ -18,6 +18,24 @@ const container = document.getElementById("star");
 const center = 300; // centro do container (px)
 const radius = 250; // distância do centro até cada imagem (px)
 
+// Adiciona o GIF central
+const gif = document.createElement("img");
+gif.src = "https://tel36214287-star.github.io/Movie/distritos/5Zeus.gif";
+gif.alt = "Zeus GIF";
+gif.style.position = "absolute";
+gif.style.width = "120px";
+gif.style.height = "120px";
+gif.style.top = "50%";
+gif.style.left = "50%";
+gif.style.transform = "translate(-50%, -50%)";
+gif.style.borderRadius = "50%";
+gif.style.border = "3px solid #ff0";
+gif.style.boxShadow = "0 0 30px #ff0";
+gif.style.zIndex = "5";
+
+container.appendChild(gif);
+
+// Adiciona as 12 imagens ao redor
 imagens.forEach((imgName, i) => {
   const angle = (i / 12) * 2 * Math.PI; // divide o círculo em 12 partes
   const x = center + radius * Math.sin(angle) - 50; // -50 para centralizar a imagem
